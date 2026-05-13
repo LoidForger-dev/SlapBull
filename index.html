@@ -27,7 +27,6 @@
       overflow-x: hidden;
     }
 
-    /* custom scroll */
     ::-webkit-scrollbar {
       width: 6px;
     }
@@ -39,7 +38,6 @@
       border-radius: 8px;
     }
 
-    /* particles canvas background */
     #particles-canvas {
       position: fixed;
       top: 0;
@@ -59,7 +57,6 @@
       padding: 0 2rem;
     }
 
-    /* glassmorphism base */
     .glass-card {
       background: rgba(0, 0, 0, 0.55);
       backdrop-filter: blur(12px);
@@ -73,7 +70,6 @@
       box-shadow: 0 25px 40px -15px rgba(0,0,0,0.8), 0 0 12px rgba(212, 175, 55, 0.2);
     }
 
-    /* fade-in on scroll */
     .fade-up {
       opacity: 0;
       transform: translateY(35px);
@@ -84,8 +80,7 @@
       transform: translateY(0);
     }
 
-    /* global typography */
-    h1, h2, h3, .orbitron, .logo-text, .nav-link, .btn, .stat-number, .roadmap-phase h3 {
+    h1, h2, h3, .orbitron, .logo-text, .nav-link, .btn, .stat-number {
       font-family: 'Orbitron', monospace;
       font-weight: 700;
       letter-spacing: 0.02em;
@@ -108,16 +103,30 @@
       margin: 6rem 0;
     }
 
-    /* NAVIGATION - improved mobile */
+    /* NAVIGATION with logo inline */
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 0;
+      padding: 1rem 0;
       flex-wrap: wrap;
       gap: 1rem;
       position: relative;
       z-index: 5;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .nav-logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #D4AF37;
+      box-shadow: 0 0 8px rgba(212,175,55,0.4);
     }
     .nav-logo {
       font-family: 'Orbitron', monospace;
@@ -148,58 +157,26 @@
       text-shadow: 0 0 6px rgba(212,175,55,0.6);
     }
 
-    /* HERO */
+    /* HERO (banner + text) */
     .hero {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 1rem 1rem 4rem;
+      padding: 2rem 1rem 4rem;
       z-index: 2;
     }
-    /* Banner image as visible element above logo */
     .hero-banner-img {
       width: 100%;
       max-width: 800px;
-      margin-bottom: 1.8rem;
+      margin-bottom: 2rem;
       border-radius: 32px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.2);
       transition: transform 0.3s;
     }
     .hero-banner-img:hover {
       transform: scale(1.01);
-    }
-    .logo-circle {
-      width: 120px;
-      height: 120px;
-      background: transparent;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.8rem;
-      cursor: pointer;
-      animation: subtlePulse 3s infinite ease-in-out;
-      transition: transform 0.2s;
-    }
-    .logo-circle:hover {
-      transform: scale(1.02);
-      filter: drop-shadow(0 0 12px rgba(212,175,55,0.6));
-    }
-    @keyframes subtlePulse {
-      0% { filter: drop-shadow(0 0 2px rgba(212,175,55,0.4)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 16px rgba(212,175,55,0.8)); transform: scale(1.02); }
-      100% { filter: drop-shadow(0 0 2px rgba(212,175,55,0.4)); transform: scale(1); }
-    }
-    .logo-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #D4AF37;
-      box-shadow: 0 0 20px rgba(212,175,55,0.3);
-      background: #0a0a0a;
     }
     .hero h1 {
       font-size: 2.8rem;
@@ -284,7 +261,6 @@
       transform: translateY(-2px);
     }
 
-    /* Grid & Cards */
     .two-col-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -377,7 +353,6 @@
       font-family: 'Orbitron', monospace;
       font-size: 0.8rem;
     }
-    /* COUNTDOWN */
     .countdown-section {
       text-align: center;
       padding: 1rem;
@@ -489,14 +464,6 @@
         max-width: 100%;
         border-radius: 20px;
       }
-      .logo-circle {
-        width: 100px;
-        height: 100px;
-      }
-      .logo-img {
-        width: 100px;
-        height: 100px;
-      }
       .footer {
         flex-direction: column;
         text-align: center;
@@ -521,9 +488,12 @@
 <canvas id="particles-canvas"></canvas>
 
 <div class="site-wrapper">
-  <!-- Navigation -->
+  <!-- Navigation with logo image beside text -->
   <div class="nav">
-    <div class="nav-logo">$SLAPBULL</div>
+    <div class="nav-brand">
+      <img src="slapbull.png" alt="SLAPBULL Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40?text=SLAP'">
+      <div class="nav-logo">$SLAPBULL</div>
+    </div>
     <div class="nav-links">
       <a href="#philosophy" class="nav-link">CORE</a>
       <a href="#lore" class="nav-link">LORE</a>
@@ -533,14 +503,9 @@
     </div>
   </div>
 
-  <!-- Hero Section with banner image ABOVE logo -->
+  <!-- Hero Section with banner image (no logo circle) -->
   <section class="hero">
-    <!-- Banner image as front element -->
     <img src="banner.png" alt="SLAPBULL Banner" class="hero-banner-img" onerror="this.style.display='none'">
-    
-    <div class="logo-circle">
-      <img src="slapbull.png" alt="SLAPBULL Logo" class="logo-img" onerror="this.src='https://placehold.co/120x120?text=SLAP'">
-    </div>
     <h1>BUILDING A MOVEMENT.<br>NOT JUST A COIN.</h1>
     <p class="hero-tagline">A community-driven movement built around culture, identity, energy and organic growth.</p>
     
@@ -662,7 +627,7 @@
     </div>
   </section>
 
-  <!-- COUNTDOWN SECTION -->
+  <!-- COUNTDOWN -->
   <section id="countdown" class="section countdown-section fade-up">
     <h2>⏳ THE BULL AWAKENS</h2>
     <div class="glass-card" style="padding: 2rem 1.5rem;">
@@ -699,7 +664,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div>
       <p style="font-family: 'Orbitron';">$SLAPBULL — BULL MARKET COMMAND CENTER</p>
@@ -714,7 +678,6 @@
 </div>
 
 <script>
-  // Particles effect
   const canvas = document.getElementById('particles-canvas');
   let ctx = canvas.getContext('2d');
   let width, height;
@@ -782,7 +745,6 @@
   initParticles();
   animateParticles();
 
-  // Countdown: May 16, 2026 19:30 UTC
   function updateCountdown() {
     const targetDate = new Date(Date.UTC(2026, 4, 16, 19, 30, 0));
     const now = new Date();
@@ -806,7 +768,6 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Intersection Observer for fade-up
   const fadeElements = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -818,7 +779,6 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   fadeElements.forEach(el => observer.observe(el));
 
-  // Smooth anchor scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
