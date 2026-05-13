@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SLAPBULL | The Bull-Market Command Center</title>
+  <meta name="description" content="SLAPBULL — Building a movement. Not just a meme coin. A community-driven ecosystem on Solana with premium identity, organic energy, and long-term dominance.">
+  <meta name="keywords" content="SLAPBULL, Solana meme coin, bull market, crypto community, The Herd, The Council, premium crypto">
+  <meta name="author" content="SLAPBULL">
+  <meta name="theme-color" content="#000000">
+  
+  <!-- Google Fonts: Orbitron + Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #050505;
+      font-family: 'Inter', sans-serif;
+      color: #eaeef2;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* custom scroll */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #b8860b;
+      border-radius: 8px;
+    }
+
+    /* particles canvas background */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .site-wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0;
+    }
+
+    /* glassmorphism base */
+    .glass-card {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 28px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(212, 175, 55, 0.1) inset;
+      transition: transform 0.3s ease, border-color 0.2s;
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.7);
+      box-shadow: 0 25px 40px -15px rgba(0,0,0,0.8), 0 0 12px rgba(212, 175, 55, 0.2);
+    }
+
+    /* fade-in on scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.7s ease;
+    }
+    .fade-up.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* global typography */
+    h1, h2, h3, .orbitron, .logo-text, .nav-link, .btn, .stat-number, .roadmap-phase h3 {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 2.3rem;
+      background: linear-gradient(135deg, #F5E7C8 0%, #D4AF37 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
+      border-left: 4px solid #D4AF37;
+      padding-left: 1.2rem;
+    }
+
+    .section {
+      margin: 6rem 0;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFFFFF, #D4AF37);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-link {
+      color: #ccd6df;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-link:hover {
+      color: #D4AF37;
+      text-shadow: 0 0 6px rgba(212,175,55,0.6);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 0 4rem;
+      isolation: isolate;
+      border-radius: 48px;
+      margin-bottom: 1rem;
+    }
+    /* Hero banner image */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('banner.png');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      opacity: 0.35; /* visible but subtle */
+      border-radius: 48px;
+      z-index: -2;
+      pointer-events: none;
+    }
+    /* Dark overlay to maintain readability */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 90%);
+      border-radius: 48px;
+      z-index: -1;
+    }
+    .logo-circle {
+      width: 130px;
+      height: 130px;
+      background: transparent;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      animation: subtlePulse 3s infinite ease-in-out;
+      transition: transform 0.2s;
+    }
+    .logo-circle:hover {
+      transform: scale(1.02);
+      filter: drop-shadow(0 0 12px rgba(212,175,55,0.6));
+    }
+    @keyframes subtlePulse {
+      0% { filter: drop-shadow(0 0 2px rgba(212,175,55,0.4)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 16px rgba(212,175,55,0.8)); transform: scale(1.02); }
+      100% { filter: drop-shadow(0 0 2px rgba(212,175,55,0.4)); transform: scale(1); }
+    }
+    .logo-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+      background: #0a0a0a;
+    }
+    .hero h1 {
+      font-size: 3.7rem;
+      font-weight: 800;
+      background: linear-gradient(130deg, #FFFFFF, #D4AF37, #E6C277);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+    .hero-tagline {
+      font-size: 1.3rem;
+      color: #b9c3ce;
+      max-width: 700px;
+      margin: 1rem auto;
+      font-weight: 400;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 2rem 0 2rem;
+    }
+    .stat-item {
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(8px);
+      padding: 0.7rem 1.5rem;
+      border-radius: 60px;
+      border-left: 2px solid #D4AF37;
+      font-family: 'Orbitron', monospace;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: #A0AAB5;
+      letter-spacing: 1px;
+    }
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #D4AF37;
+      margin-right: 6px;
+    }
+    .neon-green {
+      color: #00ffb3;
+      text-shadow: 0 0 4px #00ffb377;
+    }
+    .btn-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 1rem 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 48px;
+      transition: all 0.25s ease;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      background: transparent;
+      border: 1.5px solid #D4AF37;
+      color: #D4AF37;
+    }
+    .btn-primary {
+      background: #D4AF37;
+      color: #0a0a0a;
+      border: none;
+      box-shadow: 0 4px 14px rgba(212,175,55,0.3);
+    }
+    .btn-primary:hover {
+      background: #e6c15c;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px -8px rgba(212,175,55,0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(212,175,55,0.15);
+      border-color: #F5D97A;
+      transform: translateY(-2px);
+    }
+
+    /* Grid & Cards */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .info-card {
+      padding: 2rem;
+      border-radius: 28px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(212,175,55,0.3);
+      transition: all 0.25s;
+    }
+    .info-card:hover {
+      border-color: rgba(212,175,55,0.8);
+      transform: translateY(-5px);
+    }
+    .info-card h3 {
+      font-size: 1.7rem;
+      margin-bottom: 1.2rem;
+      color: #EAD585;
+    }
+    .highlight {
+      color: #00ffb3;
+      font-weight: 600;
+    }
+    .roadmap-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .roadmap-card {
+      flex: 1;
+      min-width: 250px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 1.8rem;
+      border-top: 3px solid #D4AF37;
+      transition: all 0.2s;
+    }
+    .roadmap-card:hover {
+      transform: translateY(-6px);
+      background: rgba(10, 10, 10, 0.85);
+      border-top-color: #e6c45e;
+    }
+    .roadmap-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.7rem;
+      margin-bottom: 1rem;
+    }
+    .roadmap-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .roadmap-card li {
+      margin-bottom: 0.7rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .roadmap-card li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #D4AF37;
+    }
+    .tokenomics-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .tokenomics-list li strong {
+      color: #D4AF37;
+      width: 140px;
+      display: inline-block;
+    }
+    .community-badge {
+      background: radial-gradient(ellipse at 20% 30%, rgba(0,0,0,0.8), #0c0b0a);
+      border: 1px solid #D4AF37;
+      border-radius: 48px;
+      padding: 0.2rem 1rem;
+      display: inline-block;
+      font-family: 'Orbitron', monospace;
+    }
+    /* COUNTDOWN */
+    .countdown-section {
+      text-align: center;
+      padding: 2rem;
+    }
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    .time-box {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      padding: 1rem 1.4rem;
+      border-radius: 24px;
+      min-width: 100px;
+      border-bottom: 2px solid #D4AF37;
+    }
+    .time-number {
+      font-family: 'Orbitron', monospace;
+      font-size: 3rem;
+      font-weight: 800;
+      color: #D4AF37;
+      line-height: 1;
+    }
+    .time-label {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #9aaebf;
+    }
+    .launch-text {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.2rem;
+      color: #00ffb3;
+    }
+    .footer {
+      border-top: 1px solid rgba(212,175,55,0.4);
+      padding: 2rem 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .social-links a {
+      color: #ccd6df;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: 0.2s;
+    }
+    .social-links a:hover {
+      color: #D4AF37;
+    }
+    @media (max-width: 768px) {
+      .site-wrapper {
+        padding: 1rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .hero-stats {
+        gap: 0.8rem;
+      }
+      .time-number {
+        font-size: 2rem;
+      }
+      .time-box {
+        min-width: 70px;
+        padding: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<div class="site-wrapper">
+  
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="nav-logo">$SLAPBULL</div>
+    <div class="nav-links">
+      <a href="#philosophy" class="nav-link">CORE</a>
+      <a href="#lore" class="nav-link">LORE</a>
+      <a href="#roadmap" class="nav-link">ROADMAP</a>
+      <a href="#community" class="nav-link">THE HERD</a>
+      <a href="#countdown" class="nav-link">LAUNCH</a>
+    </div>
+  </div>
+
+  <!-- Hero Section with Banner Image -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="logo-circle">
+      <img src="slapbull.png" alt="SLAPBULL Logo" class="logo-img" onerror="this.src='https://placehold.co/130x130?text=SLAP'">
+    </div>
+    <h1>BUILDING A MOVEMENT.<br>NOT JUST A COIN.</h1>
+    <p class="hero-tagline">A community-driven movement built around culture, identity, energy and organic growth.</p>
+    
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-label">TAX</span> <span class="stat-number">0%</span></div>
+      <div class="stat-item"><span class="stat-label">LIQUIDITY</span> <span class="stat-number">LOCKED</span></div>
+      <div class="stat-item"><span class="stat-label">BULL POWER</span> <span class="stat-number neon-green">ACTIVE</span></div>
+      <div class="stat-item"><span class="stat-label">MARKET</span> <span class="stat-number neon-green">BULL MODE</span></div>
+    </div>
+    
+    <div class="btn-group">
+      <a href="https://t.me/SLAPBULLHQ" target="_blank" class="btn btn-primary">JOIN THE HERD</a>
+      <a href="https://x.com/slapbullonsol" target="_blank" class="btn btn-outline">FOLLOW ON X</a>
+    </div>
+  </section>
+
+  <!-- About / Philosophy Section -->
+  <section id="philosophy" class="section fade-up">
+    <h2>⚡ THE MOVEMENT PHILOSOPHY</h2>
+    <div class="two-col-grid">
+      <div class="info-card">
+        <h3>Beyond Hype</h3>
+        <p>Most meme coins are created overnight. They launch with fake hype, fake engagement and disappear just as quickly.<br><br>
+        <strong>$SLAPBULL</strong> was created with a different mentality. Not to become another random token. But to build a movement, a culture, an identity, a real community.<br><br>
+        In a market full of noise, the herd started looking for something different. The Bull represents strength, momentum, resilience, dominance, discipline, long term vision.<br><br>
+        The “SLAP” represents impact — a wake-up call. A refusal to follow the same path as everyone else.</p>
+      </div>
+      <div class="info-card">
+        <h3>The Organic Way</h3>
+        <p>Strong movements are never built overnight. They are built step by step by people who saw the vision before the crowd arrived. <br><br>
+        $SLAPBULL is not built around fake promises — it is built around <strong>people</strong>. The early community already understands that strong movements require authenticity, consistency and identity.<br><br>
+        The goal is simple: Build a strong, recognizable and organic community-driven movement. Not temporary hype. Not fake numbers. Immersive identity & premium culture first.</p>
+        <div style="margin-top: 1rem;"><span class="community-badge">#TheHerd 🐂</span> <span class="community-badge" style="margin-left: 10px;">The Council 👀</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Lore -->
+  <section id="lore" class="section fade-up">
+    <h2>📜 THE LORE OF SLAPBULL</h2>
+    <div class="two-col-grid">
+      <div class="info-card">
+        <h3>🐂 THE BULL & THE SLAP</h3>
+        <p>The Bull is the eternal force of the cycle — dominance, resilience, strength, and patience. It doesn't chase, it leads. The SLAP is the moment of recognition: the strike that breaks fake narratives.<br><br> Together, $SLAPBULL embodies the collision of raw market power and a movement that refuses to be ignored.</p>
+      </div>
+      <div class="info-card">
+        <h3>👀 THE SIGNAL</h3>
+        <p><span class="highlight">“The Signal”</span> represents early recognition — the ones who understand the movement before the crowd arrives.<br>
+        <em>“The Signal is spreading. We saw it early. The movement grows stronger.”</em><br><br>
+        Early believers carry The Signal. It's the mark of those who recognize a true bull-market culture before mass adoption.</p>
+      </div>
+    </div>
+    <div class="two-col-grid" style="margin-top: 1rem;">
+      <div class="info-card">
+        <h3>🐂 THE HERD</h3>
+        <p>The Herd is the community — a united movement growing stronger together. Loyal supporters, raiders, meme creators, and every believer who rallies behind $SLAPBULL. The Herd doesn't follow; it charges forward, built on organic energy and shared dominance.</p>
+      </div>
+      <div class="info-card">
+        <h3>🏛️ THE COUNCIL</h3>
+        <p>The Council represents the core builders and admins shaping the movement, protecting the vision. They oversee raids, guide the narrative, and ensure the identity stays sharp, premium, and dominant. The pillars of SLAPBULL’s ecosystem.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why SLAPBULL -->
+  <section class="section fade-up">
+    <h2>⚡ WHY SLAPBULL</h2>
+    <div class="two-col-grid">
+      <div class="info-card"><h3>🔥 Strong Community Energy</h3><p>Organic engagement, real members & zero bots. Early believers forming an unbreakable core.</p></div>
+      <div class="info-card"><h3>🌱 Organic Growth</h3><p>No fake metrics — steady, real expansion. The movement grows authentically.</p></div>
+      <div class="info-card"><h3>🎭 Unique Identity</h3><p>Premium atmosphere, meme culture + deep lore. A brand that stands out in Solana.</p></div>
+      <div class="info-card"><h3>🔮 Long Term Vision</h3><p>Beyond temporary pumps. Building an ecosystem that endures cycles.</p></div>
+    </div>
+  </section>
+
+  <!-- ROADMAP (moved before tokenomics) -->
+  <section id="roadmap" class="section fade-up">
+    <h2>🗺️ ROADMAP — MARCH TO DOMINANCE</h2>
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <h3>PHASE 1 — FOUNDATION</h3>
+        <ul>
+          <li>Create core community</li><li>Build Telegram & X presence</li><li>Develop lore and identity</li>
+          <li>Launch website</li><li>Begin raids and engagement</li><li>Build strong visual branding</li>
+        </ul>
+      </div>
+      <div class="roadmap-card">
+        <h3>PHASE 2 — MOMENTUM</h3>
+        <ul>
+          <li>Meme contests</li><li>Community events</li><li>Stronger X visibility</li>
+          <li>Expand raid team</li><li>Organic marketing growth</li><li>Increase visibility across Solana ecosystem</li>
+        </ul>
+      </div>
+      <div class="roadmap-card">
+        <h3>PHASE 3 — EXPANSION</h3>
+        <ul>
+          <li>Larger community growth</li><li>Trend visibility goals</li><li>Partnerships/collaborations</li>
+          <li>Ecosystem development</li><li>Additional features/utilities</li><li>Strengthen SLAPBULL identity long term</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKENOMICS Section -->
+  <section class="section fade-up">
+    <h2>💠 TOKENOMICS — PRECISION ENGINE</h2>
+    <div class="glass-card" style="padding: 2rem;">
+      <ul class="tokenomics-list">
+        <li><strong>Token Name:</strong> SLAPBULL</li>
+        <li><strong>Ticker:</strong> $SLAPBULL</li>
+        <li><strong>Blockchain:</strong> Solana ⚡</li>
+        <li><strong>Taxes:</strong> 0% — pure execution</li>
+        <li><strong>Liquidity:</strong> 🔒 Locked (long-term stability)</li>
+        <li><strong>Ownership:</strong> Community Driven</li>
+        <li><strong>Supply:</strong> TBD (fair distribution to be unveiled)</li>
+        <li><strong>Contract Address:</strong> Coming Soon — The Signal will be notified.</li>
+      </ul>
+      <p style="margin-top: 1rem; color:#D4AF37;">🔐 Zero compromise. Full community alignment. Built for the bull run.</p>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN SECTION (Launch: May 16th, 2026 at 19:30 UTC) -->
+  <section id="countdown" class="section countdown-section fade-up">
+    <h2>⏳ THE BULL AWAKENS</h2>
+    <div class="glass-card" style="padding: 2rem 1.5rem;">
+      <p class="launch-text">Official Launch — Mark the Signal</p>
+      <div class="countdown-timer" id="countdownTimer">
+        <div class="time-box"><div class="time-number" id="days">00</div><div class="time-label">DAYS</div></div>
+        <div class="time-box"><div class="time-number" id="hours">00</div><div class="time-label">HOURS</div></div>
+        <div class="time-box"><div class="time-number" id="minutes">00</div><div class="time-label">MINUTES</div></div>
+        <div class="time-box"><div class="time-number" id="seconds">00</div><div class="time-label">SECONDS</div></div>
+      </div>
+      <p style="margin-top: 1.2rem; font-size: 0.95rem;">📅 May 16th, 2026 — 19:30 UTC</p>
+      <div class="btn-group" style="margin-top: 1.8rem;">
+        <a href="https://t.me/SLAPBULLHQ" target="_blank" class="btn btn-primary">Get Reminder</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section: Herd, Council -->
+  <section id="community" class="section fade-up">
+    <h2>🐂 THE HERD • THE COUNCIL • THE SIGNAL</h2>
+    <div class="glass-card" style="padding: 2.2rem; text-align: center;">
+      <p style="font-size: 1.2rem; margin-bottom: 1rem;"><span class="neon-green">👀 The Signal is spreading.</span> We saw it early. The movement grows stronger.</p>
+      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0;">
+        <div><strong class="orbitron" style="color:#D4AF37;">+12k</strong><br>Early Believers</div>
+        <div><strong class="orbitron" style="color:#D4AF37;">The Herd</strong><br>Unified Momentum</div>
+        <div><strong class="orbitron" style="color:#D4AF37;">The Council</strong><br>Elite Builders</div>
+      </div>
+      <p>Join a movement built on culture, dominance, and real community. No fake hype. No artificial engagement. Just the raw energy of the bull cycle.</p>
+      <div class="btn-group" style="margin-top: 2rem;">
+        <a href="https://t.me/SLAPBULLHQ" target="_blank" class="btn btn-primary">ENTER TELEGRAM — THE HERD AWAITS</a>
+        <a href="https://x.com/slapbullonsol" target="_blank" class="btn btn-outline">FOLLOW THE SIGNAL ON X</a>
+      </div>
+      <div style="margin-top: 2rem; font-size: 0.9rem; color: #98a6b5;">⚡ $SLAPBULL is more than a launch. It’s the beginning of a movement. 👀🐂💥</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <p style="font-family: 'Orbitron';">$SLAPBULL — BULL MARKET COMMAND CENTER</p>
+      <p style="font-size: 0.8rem; color:#727e8c;">© 2026 The Herd. All rights reserved. Built for dominance.</p>
+    </div>
+    <div class="social-links">
+      <a href="https://t.me/SLAPBULLHQ" target="_blank">TELEGRAM</a>
+      <a href="https://x.com/slapbullonsol" target="_blank">X (TWITTER)</a>
+      <a href="#" style="cursor:default;">CONTRACT: TBD</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Particles effect (cinematic, premium)
+  const canvas = document.getElementById('particles-canvas');
+  let ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+
+  function resizeCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 2.5 + 1;
+      this.speedX = (Math.random() - 0.5) * 0.15;
+      this.speedY = (Math.random() - 0.5) * 0.08 + 0.03;
+      this.opacity = Math.random() * 0.35 + 0.1;
+      this.color = Math.random() > 0.75 ? '#D4AF37' : '#e0c270';
+      if (Math.random() > 0.92) this.color = '#00ffb3';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < -20) this.x = width + 20;
+      if (this.x > width + 20) this.x = -20;
+      if (this.y < -20) this.y = height + 20;
+      if (this.y > height + 20) this.y = -20;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    let particleCount = Math.min(130, Math.floor(width * height / 8000));
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+    for (let p of particles) {
+      p.update();
+      p.draw();
+    }
+    requestAnimationFrame(animateParticles);
+  }
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    initParticles();
+  });
+
+  resizeCanvas();
+  initParticles();
+  animateParticles();
+
+  // COUNTDOWN: May 16, 2026 19:30 UTC
+  function updateCountdown() {
+    const targetDate = new Date(Date.UTC(2026, 4, 16, 19, 30, 0)); // month 4 = May
+    const now = new Date();
+    const diff = targetDate - now;
+    if (diff <= 0) {
+      document.getElementById('days').innerText = '00';
+      document.getElementById('hours').innerText = '00';
+      document.getElementById('minutes').innerText = '00';
+      document.getElementById('seconds').innerText = '00';
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (86400000)) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    document.getElementById('days').innerText = days.toString().padStart(2, '0');
+    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Intersection Observer for fade-up animation
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  fadeElements.forEach(el => observer.observe(el));
+
+  // Smooth anchor scrolling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if(targetId === "#") return;
+      const targetEl = document.querySelector(targetId);
+      if(targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+  </html>
