@@ -103,7 +103,7 @@
       margin: 6rem 0;
     }
 
-    /* NAVIGATION with logo inline */
+    /* NAVIGATION */
     .nav {
       display: flex;
       justify-content: space-between;
@@ -231,6 +231,7 @@
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
     .btn {
       padding: 0.8rem 1.6rem;
@@ -243,6 +244,10 @@
       background: transparent;
       border: 1.5px solid #D4AF37;
       color: #D4AF37;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
     .btn-primary {
       background: #D4AF37;
@@ -259,6 +264,85 @@
       background: rgba(212,175,55,0.15);
       border-color: #F5D97A;
       transform: translateY(-2px);
+    }
+    .btn-buy {
+      background: linear-gradient(135deg, #00ffb3 0%, #00cc88 100%);
+      border: none;
+      color: #0a0a0a;
+      box-shadow: 0 4px 14px rgba(0,255,179,0.3);
+    }
+    .btn-buy:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -5px rgba(0,255,179,0.5);
+    }
+
+    /* Contract Address Box (to be placed below tokenomics) */
+    .ca-section {
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+    .contract-box {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 0.8rem 1.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      border: 1px solid rgba(212,175,55,0.5);
+      margin-top: 1rem;
+    }
+    .contract-address {
+      font-family: 'Inter', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      color: #D4AF37;
+      word-break: break-all;
+    }
+    .copy-btn {
+      background: transparent;
+      border: 1px solid #D4AF37;
+      color: #D4AF37;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+    .copy-btn:hover {
+      background: rgba(212,175,55,0.2);
+      transform: scale(1.02);
+    }
+    .copy-feedback {
+      font-size: 0.7rem;
+      margin-left: 0.5rem;
+      color: #00ffb3;
+    }
+
+    /* Chart Section */
+    .chart-container {
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(212,175,55,0.3);
+      padding: 1rem;
+    }
+    .dexscreener-embed {
+      position: relative;
+      width: 100%;
+      height: 550px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 20px;
     }
 
     .two-col-grid {
@@ -353,43 +437,6 @@
       font-family: 'Orbitron', monospace;
       font-size: 0.8rem;
     }
-    .countdown-section {
-      text-align: center;
-      padding: 1rem;
-    }
-    .countdown-timer {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin: 2rem 0;
-    }
-    .time-box {
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      padding: 0.8rem 1rem;
-      border-radius: 20px;
-      min-width: 80px;
-      border-bottom: 2px solid #D4AF37;
-    }
-    .time-number {
-      font-family: 'Orbitron', monospace;
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #D4AF37;
-      line-height: 1;
-    }
-    .time-label {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #9aaebf;
-    }
-    .launch-text {
-      font-family: 'Orbitron', monospace;
-      font-size: 1rem;
-      color: #00ffb3;
-    }
     .footer {
       border-top: 1px solid rgba(212,175,55,0.4);
       padding: 2rem 0 3rem;
@@ -449,13 +496,6 @@
       .roadmap-card h3 {
         font-size: 1.2rem;
       }
-      .time-number {
-        font-size: 1.8rem;
-      }
-      .time-box {
-        min-width: 65px;
-        padding: 0.5rem;
-      }
       .btn {
         padding: 0.6rem 1.2rem;
         font-size: 0.8rem;
@@ -472,6 +512,15 @@
       .social-links a {
         margin: 0 0.8rem;
       }
+      .dexscreener-embed {
+        height: 450px;
+      }
+      .contract-box {
+        padding: 0.5rem 1rem;
+      }
+      .contract-address {
+        font-size: 0.7rem;
+      }
     }
     @media (max-width: 480px) {
       .section {
@@ -479,6 +528,9 @@
       }
       .hero {
         padding: 0.5rem 0.5rem 3rem;
+      }
+      .dexscreener-embed {
+        height: 400px;
       }
     }
   </style>
@@ -488,7 +540,7 @@
 <canvas id="particles-canvas"></canvas>
 
 <div class="site-wrapper">
-  <!-- Navigation with logo image beside text -->
+  <!-- Navigation -->
   <div class="nav">
     <div class="nav-brand">
       <img src="slapbull.png" alt="SLAPBULL Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40?text=SLAP'">
@@ -499,11 +551,11 @@
       <a href="#lore" class="nav-link">LORE</a>
       <a href="#roadmap" class="nav-link">ROADMAP</a>
       <a href="#community" class="nav-link">THE HERD</a>
-      <a href="#countdown" class="nav-link">LAUNCH</a>
+      <a href="#chart" class="nav-link">CHART</a>
     </div>
   </div>
 
-  <!-- Hero Section with banner image (no logo circle) -->
+  <!-- Hero Section -->
   <section class="hero">
     <img src="banner.png" alt="SLAPBULL Banner" class="hero-banner-img" onerror="this.style.display='none'">
     <h1>BUILDING A MOVEMENT.<br>NOT JUST A COIN.</h1>
@@ -517,6 +569,7 @@
     </div>
     
     <div class="btn-group">
+      <a href="https://pump.fun/coin/99TGPysikFU4Bo7YwGDduK25xPnGaG9dySBurEHnpump" target="_blank" class="btn btn-buy">BUY $SLAPBULL</a>
       <a href="https://t.me/SLAPBULLHQ" target="_blank" class="btn btn-primary">JOIN THE HERD</a>
       <a href="https://x.com/slapbullonsol" target="_blank" class="btn btn-outline">FOLLOW ON X</a>
     </div>
@@ -621,27 +674,35 @@
         <li><strong>Liquidity:</strong> 🔒 Locked (long-term stability)</li>
         <li><strong>Ownership:</strong> Community Driven</li>
         <li><strong>Supply:</strong> TBD (fair distribution to be unveiled)</li>
-        <li><strong>Contract Address:</strong> Coming Soon — The Signal will be notified.</li>
+        <li><strong>Contract Address:</strong> <span style="font-family: monospace;">99TGPysikFU4Bo7YwGDduK25xPnGaG9dySBurEHnpump</span></li>
       </ul>
       <p style="margin-top: 1rem; color:#D4AF37;">🔐 Zero compromise. Full community alignment. Built for the bull run.</p>
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
-  <section id="countdown" class="section countdown-section fade-up">
-    <h2>⏳ THE BULL AWAKENS</h2>
-    <div class="glass-card" style="padding: 2rem 1.5rem;">
-      <p class="launch-text">Official Launch — Mark the Signal</p>
-      <div class="countdown-timer" id="countdownTimer">
-        <div class="time-box"><div class="time-number" id="days">00</div><div class="time-label">DAYS</div></div>
-        <div class="time-box"><div class="time-number" id="hours">00</div><div class="time-label">HOURS</div></div>
-        <div class="time-box"><div class="time-number" id="minutes">00</div><div class="time-label">MINUTES</div></div>
-        <div class="time-box"><div class="time-number" id="seconds">00</div><div class="time-label">SECONDS</div></div>
+  <!-- CONTRACT ADDRESS SECTION (moved below tokenomics) -->
+  <div class="ca-section fade-up">
+    <h2>🔗 VERIFIED CONTRACT</h2>
+    <div class="contract-box">
+      <span class="contract-address" id="contractAddress">Ca: 99TGPysikFU4Bo7YwGDduK25xPnGaG9dySBurEHnpump</span>
+      <button class="copy-btn" id="copyContractBtn">COPY ADDRESS</button>
+      <span id="copyFeedback" class="copy-feedback"></span>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: #9aaebf;">Always verify contract addresses before trading.</p>
+  </div>
+
+  <!-- LIVE CHART SECTION -->
+  <section id="chart" class="section fade-up">
+    <h2>📈 LIVE CHART — BULL MARKET METRICS</h2>
+    <div class="chart-container glass-card">
+      <div class="dexscreener-embed">
+        <iframe src="https://dexscreener.com/solana/866haeadysmyqq7rrpupdwuczmtbcfffaecwhnxxf52v?embed=1&theme=dark&trades=0&info=0" 
+                title="SLAPBULL Live Chart"
+                allow="clipboard-write"
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals">
+        </iframe>
       </div>
-      <p style="margin-top: 1.2rem; font-size: 0.9rem;">📅 May 16th, 2026 — 19:30 UTC</p>
-      <div class="btn-group" style="margin-top: 1.5rem;">
-        <a href="https://t.me/SLAPBULLHQ" target="_blank" class="btn btn-primary">Get Reminder</a>
-      </div>
+      <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #9aaebf;">Real-time pricing & liquidity — powered by DexScreener</p>
     </div>
   </section>
 
@@ -672,12 +733,13 @@
     <div class="social-links">
       <a href="https://t.me/SLAPBULLHQ" target="_blank">TELEGRAM</a>
       <a href="https://x.com/slapbullonsol" target="_blank">X (TWITTER)</a>
-      <a href="#" style="cursor:default;">CONTRACT: TBD</a>
+      <a href="#" style="cursor:default;">CA: 99TGP...npump</a>
     </div>
   </footer>
 </div>
 
 <script>
+  // Particles effect
   const canvas = document.getElementById('particles-canvas');
   let ctx = canvas.getContext('2d');
   let width, height;
@@ -745,29 +807,27 @@
   initParticles();
   animateParticles();
 
-  function updateCountdown() {
-    const targetDate = new Date(Date.UTC(2026, 4, 16, 19, 30, 0));
-    const now = new Date();
-    const diff = targetDate - now;
-    if (diff <= 0) {
-      document.getElementById('days').innerText = '00';
-      document.getElementById('hours').innerText = '00';
-      document.getElementById('minutes').innerText = '00';
-      document.getElementById('seconds').innerText = '00';
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (86400000)) / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    document.getElementById('days').innerText = days.toString().padStart(2, '0');
-    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  // Copy contract address functionality
+  const copyBtn = document.getElementById('copyContractBtn');
+  const contractText = document.getElementById('contractAddress').innerText;
+  const feedbackSpan = document.getElementById('copyFeedback');
 
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(contractText);
+      feedbackSpan.textContent = '✓ Copied!';
+      setTimeout(() => {
+        feedbackSpan.textContent = '';
+      }, 2000);
+    } catch (err) {
+      feedbackSpan.textContent = 'Press Ctrl+C';
+      setTimeout(() => {
+        feedbackSpan.textContent = '';
+      }, 1500);
+    }
+  });
+
+  // Intersection Observer for fade-up
   const fadeElements = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -779,6 +839,7 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   fadeElements.forEach(el => observer.observe(el));
 
+  // Smooth anchor scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -792,4 +853,4 @@
   });
 </script>
 </body>
-  </html>
+</html>
